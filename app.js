@@ -12,7 +12,7 @@ const progress = document.querySelector("#progress")
 const progressLabel = document.querySelector("#progress-label")
 const checkBoxes = document.querySelectorAll(".setup-checkbox")
 const menuItems = document.querySelectorAll("[role=menuitem]")
-let isVisible = false
+let isVisible = true
 let completed = 0
 let width = 0
 
@@ -42,7 +42,6 @@ function clearAdvert() {
 function toggleFullWidth() {
     setUpToggle.classList.toggle("rotate")
     const isCollapsed = setUpList.style.display === "none"
-    console.log(isCollapsed);
     if (isCollapsed) {
         setUpList.style.display = "block"
     } else {
@@ -52,7 +51,7 @@ function toggleFullWidth() {
 
 function showHidden(item, index) {
     item.addEventListener("click", function () {
-        console.log(isVisible);
+        
         if (isVisible) {
             if (setUpHidden[index].classList.contains("visible")) {
                 return
@@ -95,7 +94,6 @@ function hideHidden(index) {
 function toggleCompleted(item, index) {
     checkBoxes[index].addEventListener("click", function () {
         let children = checkBoxes[index].children;
-        hideHidden(index)
 
         if (children[0].classList.contains("checkbox-hidden")) {
             children[2].classList.add("checkbox-hidden")
@@ -176,6 +174,12 @@ function makeCheckboxVisible(item, index) {
     })
 }
 
+function checkCheckBoxVisible(item, index) {
+    item.addEventListener("click", function () {
+        isVisible = true
+    })
+}
+
 progressLabel.innerHTML = `${completed}/5 completed`
 progress.style.width = `${width}%`
 setUpItems[0].classList.add("expanded-item")
@@ -187,3 +191,4 @@ setUpToggle.addEventListener("click", toggleFullWidth)
 checkBoxes.forEach(makeCheckboxVisible)
 checkBoxes.forEach(toggleCompleted)
 setUpItems.forEach(showHidden)
+setUpItems.forEach(checkCheckBoxVisible)
